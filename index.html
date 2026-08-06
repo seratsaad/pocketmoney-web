@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PocketMoney — the money agent you text</title>
+<meta name="description" content="An AI you text to handle money between people. Split rent, check before you buy, save together, without anyone losing their privacy." />
+<meta property="og:title" content="PocketMoney — the money agent you text" />
+<meta property="og:description" content="Accountability without surveillance. The AI that handles money between people." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#15151a; --muted:#6b6b76; --line:#ececec; --blue:#0b84fe; --green:#1a7a4a; --bg:#fbfbfa; --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:inherit;text-decoration:none}
+  /* wallet logo */
+  .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:inline-flex;align-items:center;justify-content:center}
+  .logo svg{width:18px;height:18px}
+  /* nav */
+  nav{position:sticky;top:0;z-index:40;background:rgba(251,251,250,.8);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+  nav .row{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+  .btn{display:inline-block;background:var(--ink);color:#fff;font-weight:650;font-size:15px;padding:10px 17px;border-radius:11px;border:none;cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .25s ease,box-shadow .25s ease}
+  .btn:hover{opacity:.94;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  .btn:active{transform:translateY(0)}
+  .btn.line{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(42px);transition:opacity 5.4s cubic-bezier(.16,1,.3,1),transform 5.4s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  /* gentle stagger within grouped reveals */
+  .feat-grid .feat:nth-child(2),.who-grid .who:nth-child(2),.faq .qa:nth-child(2){transition-delay:.5s}
+  .feat-grid .feat:nth-child(3),.who-grid .who:nth-child(3),.faq .qa:nth-child(3){transition-delay:1s}
+  .who-grid .who:nth-child(4),.faq .qa:nth-child(4){transition-delay:1.5s}
+  .rise{animation:rise 4s cubic-bezier(.16,1,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.reveal{transition:none;opacity:1;transform:none}.rise{animation:none}}
+  /* hero */
+  .hero{text-align:center;padding:84px 0 30px}
+  .pill{display:inline-block;font-size:13px;font-weight:600;color:var(--muted);border:1px solid var(--line);background:#fff;padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-size:clamp(36px,6.4vw,64px);line-height:1.04;letter-spacing:-.035em;font-weight:820;max-width:15ch;margin:0 auto 18px}
+  .sub{font-size:clamp(17px,2.3vw,20px);color:var(--muted);max-width:58ch;margin:0 auto 28px}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .tagline{margin-top:18px;font-size:14px;color:var(--muted)}
+  .tagline b{color:var(--ink)}
+  /* section */
+  section{padding:400px 0;border-top:1px solid var(--line)}
+  .statement{padding:560px 0}
+  @media(max-width:820px){
+    .cast{display:none !important}       /* avatars already head each chat in the pane headers */
+    section{padding:150px 0}
+    .statement{padding:210px 0}
+    /* swipeable chats on phones, Aisha shows first */
+    .stage{display:flex !important;max-width:100% !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 6px 12px;-webkit-overflow-scrolling:touch}
+    .stage::-webkit-scrollbar{display:none}
+    .phone{flex:0 0 80%;scroll-snap-align:start;height:540px}
+    .phone.mid{order:-1}                  /* Aisha first */
+  }
+  .eyebrow{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.05em;text-transform:uppercase;text-align:center}
+  h2{font-size:clamp(26px,4vw,40px);letter-spacing:-.025em;margin:10px auto 8px;max-width:22ch;text-align:center;font-weight:800}
+  .lead{color:var(--muted);font-size:17px;max-width:56ch;margin:0 auto;text-align:center}
+  /* hub */
+  .hub{position:relative;width:560px;max-width:96vw;height:392px;margin:34px auto 6px}
+  .demo-title{font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.025em;text-align:center;margin-bottom:2px}
+  .cast{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:14px auto -2px;position:relative;padding-top:8px}
+  @media(max-width:820px){.cast{grid-template-columns:1fr;max-width:440px;gap:10px;padding-top:0}}
+  .castlines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+  .castlines path{fill:none;stroke:#d2d2d8;stroke-width:2.5;stroke-dasharray:340;stroke-dashoffset:340;transition:stroke-dashoffset 1.2s ease}
+  .cast.draw .castlines path{stroke-dashoffset:0}
+  @media(max-width:820px){.castlines{display:none}}
+  .cnode{justify-self:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px 18px;text-align:center;width:172px;box-shadow:0 10px 30px rgba(20,20,40,.07);opacity:0;transform:translateY(16px) scale(.96);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+  .cnode.in{opacity:1;transform:none}
+  .cnode.mid{margin-top:-14px;border-color:#f3cfe1}
+  .cnode img{width:66px;height:66px;border-radius:50%;object-fit:cover;margin-bottom:8px}
+  .cnode.mid img{width:80px;height:80px}
+  .cnode .nm{font-weight:800;font-size:16px;letter-spacing:-.01em}
+  .cnode .r{font-size:12px;color:var(--muted);font-weight:700;margin-top:2px}
+  .democap{text-align:center;min-height:34px;margin:10px 0 14px}
+  .democap span{display:inline-block;background:var(--ink);color:#fff;font-size:14px;font-weight:600;padding:8px 17px;border-radius:999px;opacity:0;transition:opacity .4s ease}
+  .hub svg.lk{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .hub svg.lk path{fill:none;stroke:#d7d7da;stroke-width:2.5;stroke-dasharray:360;stroke-dashoffset:360;transition:stroke-dashoffset 1.4s ease}
+  .hub.draw svg.lk path{stroke-dashoffset:0}
+  .hub .node{position:absolute;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;width:138px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.06);opacity:0;transform:translateY(16px) scale(.96);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+  .hub .node.in{opacity:1;transform:none}
+  .hub .node img{width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:7px}
+  .hub .node .nm{font-weight:800;font-size:15px}
+  .hub .node.center{left:calc(50% - 76px);top:0;width:152px}
+  .hub .node.center img{width:78px;height:78px}
+  .hub .node.s{left:6px;top:200px}
+  .hub .node.j{right:6px;top:200px}
+  .hub .big{position:absolute;top:356px;width:150px;text-align:center;font-size:22px;font-weight:800;letter-spacing:-.01em;opacity:0;transform:translateY(10px);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+  .hub .big.in{opacity:1;transform:none}
+  .hub .big.s{left:0}.hub .big.j{right:0}
+  /* chat demo */
+  .stage{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:14px auto 0}
+  @media(max-width:820px){.stage,.stage-labels{grid-template-columns:1fr;max-width:440px}}
+  .stage-labels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:26px auto 0}
+  .stage-labels div{text-align:center;font-weight:800;font-size:17px;letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:7px}
+  .stage-labels .rel{font-size:12px;font-weight:700;color:var(--muted)}
+  .phone{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 40px rgba(20,20,40,.08);display:flex;flex-direction:column;height:560px;overflow:hidden}
+  .phone.mid{box-shadow:0 16px 46px rgba(217,64,138,.16)}
+  .phead{padding:10px 13px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;background:#fafafb}
+  .phead img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+  .phead .nm{font-weight:700;font-size:14px;flex:1}
+  .phead .tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;background:#eef1fd;color:#2f56d6}
+  .phead .tag.mid{background:#fde9f2;color:#d9408a}
+  .feed{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:6px}
+  .day{align-self:center;color:var(--muted);font-size:11px;margin:0 0 6px}
+  .b{font-size:13.5px;line-height:1.36;padding:8px 12px;border-radius:17px;max-width:88%;word-wrap:break-word;animation:pop .5s cubic-bezier(.2,.8,.2,1)}
+  @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .b.me{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:5px}
+  .b.bot{align-self:flex-start;background:#f4f6fe;border:1px solid #e1e8fb;border-bottom-left-radius:5px;display:flex;gap:7px;align-items:flex-start}
+  .b.bot .pa{width:20px;height:20px;border-radius:50%;flex:none;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:flex;align-items:center;justify-content:center}
+  .b.bot .pa svg{width:12px;height:12px}
+  .b.typing .dots{display:flex;gap:4px;padding:3px 0}
+  .b.typing i{width:6px;height:6px;border-radius:50%;background:#b5b5bd;animation:bln 1.2s infinite}
+  .b.typing i:nth-child(2){animation-delay:.2s}.b.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes bln{0%,60%,100%{opacity:.3}30%{opacity:1}}
+  .goal{margin-top:5px;align-self:flex-start;background:#fff;border:1px solid #e1e8fb;border-radius:13px;padding:9px 11px;max-width:88%}
+  .goal .lbl{font-size:11px;color:var(--muted);margin-bottom:5px}
+  .goal .bar{height:7px;border-radius:5px;background:#ececf1;overflow:hidden}
+  .goal .fill{height:100%;background:linear-gradient(90deg,#0b84fe,#1a7a4a);transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
+  .replay{display:block;margin:22px auto 0}
+  /* Cleo-style scroll sections */
+  .statement{text-align:center}
+  .statement h2{font-size:clamp(28px,4.6vw,48px);max-width:22ch;line-height:1.12;margin:0 auto}
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+  @media(max-width:820px){.feat-grid{grid-template-columns:1fr}}
+  .feat{border-radius:22px;padding:26px 24px;text-align:left}
+  .feat .fic{font-size:32px}
+  .feat h3{font-size:20px;margin:12px 0 6px;letter-spacing:-.01em}
+  .feat p{color:var(--muted);font-size:15px}
+  .who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+  @media(max-width:820px){.who-grid{grid-template-columns:repeat(2,1fr)}}
+  .who{border-radius:20px;padding:28px 16px;text-align:center;font-size:32px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .who span{font-size:16px;font-weight:700;color:var(--ink)}
+  .faq{max-width:760px;margin:30px auto 0;display:grid;gap:14px}
+  .qa{border-radius:18px;padding:20px 24px;text-align:left}
+  .qa h4{font-size:17px;margin-bottom:6px;letter-spacing:-.01em}
+  .qa p{color:var(--muted);font-size:15px}
+  /* signup */
+  .signup{background:var(--ink);color:#fff;border-radius:26px;padding:50px 24px;text-align:center;margin:8px auto;max-width:1000px}
+  .signup h2{color:#fff}
+  .signup p{color:#b9b9c4;max-width:48ch;margin:6px auto 24px}
+  form{max-width:430px;margin:0 auto;display:flex;flex-direction:column;gap:10px;text-align:left}
+  form label{font-size:12px;color:#b9b9c4;margin-bottom:-4px}
+  form input,form select{width:100%;padding:12px 14px;border-radius:11px;border:1px solid #3a3a44;background:#1f1f27;color:#fff;font-size:15px;font-family:inherit}
+  form input:focus,form select:focus{outline:2px solid var(--blue);border-color:transparent}
+  form .btn{margin-top:6px;padding:13px;background:var(--blue)}
+  .hp{position:absolute;left:-9999px}
+  .consent{display:flex;gap:9px;align-items:flex-start;margin-top:4px}
+  .consent input{width:auto;flex:0 0 auto;margin-top:3px;accent-color:var(--blue)}
+  .consent span{font-size:12px;line-height:1.5;color:#9a949f}
+  .consent a{color:#b9d4ff;text-decoration:underline}
+  .consent b{color:#cbc7d2}
+  #thanks{display:none;color:#fff;font-size:17px}#thanks b{color:#7fe0a6}
+  #formerr{display:none;color:#ffb4b4;font-size:14px;margin-top:12px;text-align:center}
+  /* footer (Khanflow style) */
+  footer{background:#1c1a18;color:#cفc;color:#cbc7c2}
+  footer{background:#1c1a18;color:#cbc7c2}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding:64px 0 30px}
+  @media(max-width:760px){.fgrid{grid-template-columns:1fr;gap:30px}}
+  footer .brand{color:#fff}
+  .fitalic{font-style:italic;color:#9a948c;font-size:21px;margin-top:22px}
+  .fbold{font-weight:800;color:#fff;font-size:21px;letter-spacing:-.01em;margin-top:2px}
+  .fdesc{color:#8f8a83;font-size:14.5px;max-width:38ch;margin-top:16px;line-height:1.6}
+  .fsoc{display:flex;gap:14px;margin-top:20px}
+  .fsoc a{width:34px;height:34px;border:1px solid #3a3733;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#9a948c;transition:color .25s ease,border-color .25s ease,transform .25s ease}
+  .fsoc a:hover{color:#fff;border-color:#5a5650;transform:translateY(-1px)}
+  .fsoc svg{width:17px;height:17px}
+  .fcol h4{color:#c9714f;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+  .fcol a{display:block;color:#c4bfb9;font-size:15px;margin-bottom:14px;transition:color .22s ease}
+  .fcol a:hover{color:#fff}
+  .fbar{border-top:1px solid #322e2a;display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:13px;color:#857f78;flex-wrap:wrap;gap:10px}
+  .status{display:flex;align-items:center;gap:8px}
+  .status .dot{width:9px;height:9px;border-radius:50%;background:#3ddc84}
+  /* ── iOS-style liquid glass ─────────────────────────────────── */
+  body{position:relative}
+  body::before{content:'';position:fixed;inset:-15%;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(40% 44% at 12% 8%, rgba(11,132,254,.30), transparent 60%),
+      radial-gradient(42% 46% at 90% 12%, rgba(26,122,74,.26), transparent 60%),
+      radial-gradient(44% 48% at 72% 58%, rgba(217,64,138,.16), transparent 60%),
+      radial-gradient(50% 54% at 44% 114%, rgba(123,47,181,.24), transparent 60%);
+    animation:aurora 22s ease-in-out infinite alternate}
+  @keyframes aurora{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(1%,-3%,0) scale(1.07)}}
+  nav{background:rgba(255,255,255,.5)!important;backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px);border-bottom:1px solid rgba(255,255,255,.55)}
+  .pill{background:rgba(255,255,255,.55);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.75);box-shadow:0 6px 20px rgba(20,20,40,.07),inset 0 1px 0 rgba(255,255,255,.85)}
+  .btn{background:linear-gradient(180deg,#26262d,#141418);box-shadow:0 6px 18px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.14)}
+  .btn.line{background:rgba(255,255,255,.5);backdrop-filter:blur(12px) saturate(160%);-webkit-backdrop-filter:blur(12px) saturate(160%);border:1px solid rgba(255,255,255,.8)}
+  .phone{background:rgba(255,255,255,.5)!important;backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);border:1px solid rgba(255,255,255,.65);box-shadow:0 18px 50px rgba(20,20,50,.16),inset 0 1px 0 rgba(255,255,255,.8)}
+  .phone.mid{box-shadow:0 22px 60px rgba(217,64,138,.2),inset 0 1px 0 rgba(255,255,255,.8)}
+  .phead{background:rgba(255,255,255,.4)!important;border-bottom:1px solid rgba(255,255,255,.5)}
+  .feed{background:rgba(255,255,255,.42)!important}
+  .b.bot{background:rgba(244,246,254,.86)!important}
+  .cnode{background:rgba(255,255,255,.6)!important;backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.75);box-shadow:0 14px 40px rgba(20,20,50,.14),inset 0 1px 0 rgba(255,255,255,.9)}
+  .cnode.mid{border:1px solid rgba(243,207,225,.85)!important}
+  .feat,.who,.qa{background:rgba(255,255,255,.52)!important;backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,.7);box-shadow:0 14px 40px rgba(20,20,50,.1),inset 0 1px 0 rgba(255,255,255,.85)}
+  .signup{position:relative;overflow:hidden;background:linear-gradient(160deg, rgba(30,32,66,.92), rgba(13,14,30,.95))!important;backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 90px rgba(24,18,70,.42),inset 0 1px 0 rgba(255,255,255,.2)}
+  .signup::before{content:'';position:absolute;top:0;left:0;right:0;height:150px;background:radial-gradient(120% 100% at 28% 0%, rgba(255,255,255,.18), transparent 70%);pointer-events:none;z-index:0}
+  .signup>*{position:relative;z-index:1}
+  .signup input,.signup select{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.18)!important}
+  .democap span{background:rgba(20,20,28,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14)}
+  @media (prefers-reduced-motion: reduce){body::before{animation:none}}
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.rise{animation:none!important;opacity:1!important}</style></noscript>
+</head>
+<body>
+  <nav><div class="wrap row">
+    <div class="brand"><span class="logo" id="navlogo"></span>PocketMoney</div>
+    <a href="#signup" class="btn">Get early access</a>
+  </div></nav>
+
+  <header class="hero"><div class="wrap">
+    <span class="pill rise" style="animation-delay:.05s">Money between people, done right</span>
+    <h1 class="rise" style="animation-delay:.14s">The money agent you just text</h1>
+    <p class="sub rise" style="animation-delay:.24s">Split rent, plan trips, and save with the people in your life, all from one chat that keeps everyone private</p>
+    <div class="cta rise" style="animation-delay:.34s">
+      <a href="#signup" class="btn">Get early access</a>
+      <a href="#demo" class="btn line">See the demo</a>
+    </div>
+    <p class="tagline rise" style="animation-delay:.44s"><b>Accountability without surveillance</b></p>
+  </div></header>
+
+  <section id="demo"><div class="wrap">
+    <h2 class="demo-title reveal">Meet Aisha and her two worlds</h2>
+
+    <div class="cast">
+      <svg class="castlines" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M600 28 C 600 92, 200 54, 200 88"/>
+        <path d="M600 28 C 600 92, 1000 54, 1000 88"/>
+      </svg>
+      <div class="cnode"><img src="avatars/sam.png"><div class="nm">Sam</div><div class="r">💛 Boyfriend</div></div>
+      <div class="cnode mid"><img src="avatars/maya.png"><div class="nm">Aisha</div></div>
+      <div class="cnode"><img src="avatars/jesmine.png"><div class="nm">Jasmine</div><div class="r">🏠 Roommate</div></div>
+    </div>
+    <div class="democap"><span id="dcap"></span></div>
+    <div class="stage">
+      <div class="phone"><div class="phead"><img src="avatars/sam.png"><span class="nm">Sam</span><span class="tag">boyfriend</span></div><div class="feed" id="f-sam"><div class="day">iMessage · Today</div></div></div>
+      <div class="phone mid"><div class="phead"><img src="avatars/maya.png"><span class="nm">Aisha</span><span class="tag mid">main</span></div><div class="feed" id="f-maya"><div class="day">iMessage · Today</div></div></div>
+      <div class="phone"><div class="phead"><img src="avatars/jesmine.png"><span class="nm">Jasmine</span><span class="tag">roommate</span></div><div class="feed" id="f-jesmine"><div class="day">iMessage · Today</div></div></div>
+    </div>
+    <button class="btn line replay" id="replay">▶ Replay the story</button>
+  </div></section>
+
+  <section class="statement"><div class="wrap">
+    <h2 class="reveal">Money is the #1 thing people fight about<br>so we built an assistant that just handles it</h2>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="eyebrow reveal">Why it works</div>
+    <h2 class="reveal">A money assistant that actually gets your life</h2>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="fic">💸</div><h3>Ask before you buy</h3><p>Text PocketMoney before you tap your card. It knows your real balance and goals, and gives it to you straight</p></div>
+      <div class="feat reveal"><div class="fic">🔒</div><h3>Lock your spending</h3><p>Lock your money with PocketMoney and it only frees up what fits your plan, so future-you wins</p></div>
+      <div class="feat reveal"><div class="fic">🤝</div><h3>Split without the math</h3><p>Rent, trips, groceries. PocketMoney splits it fairly and keeps everyone's income private</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <h2 class="reveal">For the people you actually share money with</h2>
+    <div class="who-grid">
+      <div class="who reveal">💛<span>Couples</span></div>
+      <div class="who reveal">🏠<span>Roommates</span></div>
+      <div class="who reveal">👨‍👩‍👧<span>Families</span></div>
+      <div class="who reveal">🧑‍💻<span>Small teams</span></div>
+    </div>
+  </div></section>
+
+  <section class="statement"><div class="wrap">
+    <h2 class="reveal">Like a brutally honest friend who is great with money<br>and actually keeps your secrets</h2>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="eyebrow reveal">Good to know</div>
+    <h2 class="reveal">Questions, answered</h2>
+    <div class="faq">
+      <div class="qa reveal"><h4>Is my bank info safe?</h4><p>Yes, you connect through trusted bank-grade providers and PocketMoney never sees your login</p></div>
+      <div class="qa reveal"><h4>Can my roommate see my balance?</h4><p>Never, PocketMoney coordinates the shared stuff and keeps your private money private</p></div>
+      <div class="qa reveal"><h4>How do I talk to it?</h4><p>You just text it, like a friend, with no new app to learn</p></div>
+      <div class="qa reveal"><h4>What does it cost?</h4><p>Early access is free while we onboard the first couples, roommates, and teams</p></div>
+    </div>
+  </div></section>
+
+  <section id="signup" style="border:none"><div class="wrap">
+    <div class="signup reveal">
+      <h2>Get early access</h2>
+      <p>We are onboarding the first couples, roommates, and small teams by hand, join the list and we will reach out</p>
+      <form id="ea" novalidate>
+        <p class="hp"><label>Skip<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <label for="n">Name</label><input id="n" name="name" type="text" placeholder="Your name" required />
+        <label for="e">Email</label><input id="e" name="email" type="email" placeholder="you@example.com" required />
+        <label for="p">Phone (so PocketMoney can text you)</label><input id="p" name="phone" type="tel" placeholder="+1 ..." required />
+        <label for="r">Who is it for</label>
+        <select id="r" name="role"><option>A couple</option><option>Roommates</option><option>A small team</option><option>Just me</option></select>
+        <label class="consent"><input id="c" name="sms_consent" type="checkbox" value="yes" required /><span>I agree to receive text messages from PocketMoney about early access and my account. Msg &amp; data rates may apply. Msg frequency varies. Reply <b>HELP</b> for help, <b>STOP</b> to cancel. Consent is not a condition of purchase. See our <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms</a>.</span></label>
+        <button class="btn" type="submit">Join early access</button>
+      </form>
+      <div id="thanks">✅ <b>You are on the list</b> we will text you when it is your turn</div>
+      <div id="formerr"></div>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div class="fgrid">
+      <div class="reveal">
+        <div class="brand"><span class="logo" id="flogo"></span>PocketMoney</div>
+        <div class="fitalic">Stop spying on each other</div>
+        <div class="fbold">Start saving together</div>
+        <div class="fdesc">An AI you text to handle money between people, without anyone losing their privacy</div>
+        <div class="fsoc">
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.9 3.7A11.4 11.4 0 0 1 3.7 4.6a4 4 0 0 0 1.2 5.4c-.6 0-1.2-.2-1.7-.5a4 4 0 0 0 3.2 4 4 4 0 0 1-1.8.1 4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.1 11.3 11.3 0 0 0 8.1 20c7.4 0 11.5-6.2 11.5-11.5v-.5c.8-.6 1.5-1.3 2-2.1z"/></svg></a>
+          <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+        </div>
+      </div>
+      <div class="fcol reveal" style="transition-delay:.08s"><h4>Product</h4><a href="#demo">How it works</a><a href="#demo">Demo</a><a href="#signup">Early access</a></div>
+      <div class="fcol reveal" style="transition-delay:.16s"><h4>Support</h4><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+    </div>
+    <div class="fbar">
+      <span>© 2026 PocketMoney · All rights reserved</span>
+      <span class="status"><span class="dot"></span> Early access open</span>
+    </div>
+  </div></footer>
+
+<script>
+  const WALLET='<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="3" fill="#fff"/><circle cx="16.2" cy="12.2" r="1.7" fill="#1a7a4a"/></svg>';
+  document.getElementById('navlogo').innerHTML=WALLET;
+  document.getElementById('flogo').innerHTML=WALLET;
+
+  const feed=id=>document.getElementById('f-'+id);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const readMs=t=>Math.min(2400,Math.max(1000,(t||'').length*27)); // dwell scales with length
+  function bubble(p,text,me){
+    const f=feed(p); const b=document.createElement('div'); b.className='b '+(me?'me':'bot');
+    if(me){ b.textContent=text; }
+    else { b.innerHTML='<span class="pa">'+WALLET+'</span><span></span>'; b.lastChild.textContent=text; }
+    f.appendChild(b);
+    const mp=text.match(/\$([\d,]+)\s*\/\s*\$([\d,]+)\s*\((\d+)%\)/);
+    if(mp){ const g=document.createElement('div'); g.className='goal'; g.innerHTML='<div class="lbl">Japan ✈️ fund</div><div class="bar"><div class="fill" style="width:0%"></div></div>'; f.appendChild(g); requestAnimationFrame(()=>g.querySelector('.fill').style.width=mp[3]+'%'); }
+    f.scrollTop=f.scrollHeight;
+  }
+  async function typing(p,ms){ const f=feed(p); const t=document.createElement('div'); t.className='b bot typing'; t.innerHTML='<span class="pa">'+WALLET+'</span><span class="dots"><i></i><i></i><i></i></span>'; f.appendChild(t); f.scrollTop=f.scrollHeight; await sleep(ms); t.remove(); }
+  async function botMsg(p,text,myId){ await typing(p,900); if(myId!==runId) return; bubble(p,text,false); await sleep(readMs(text)); }
+
+  // hardcoded story (em dashes allowed inside chat bubbles)
+  // ['c', caption] narrates a beat; ['m', pane, me, text] is a chat message
+  const story=[
+    ['c',"Aisha eyes a $220 buy"],
+    ['m','maya',1,"can I afford these $220 boots?"],
+    ['m','maya',0,"$220? doable, but your Japan fund just shot me a look 👀 you're $2,600 away. want me to run it past Sam first?"],
+    ['m','maya',1,"yeah run it by sam"],
+    ['c',"PocketMoney checks with Sam privately, they never text each other here"],
+    ['m','sam',0,"quick one 👀 Aisha's eyeing $220 boots and the trip fund is watching. green light, or save it for Japan? 🙏"],
+    ['m','sam',1,"nah let's wait for the trip 🙏"],
+    ['m','sam',0,"smart man. holding the boots hostage for now 🙏"],
+    ['c',"Then it reports back in its own voice, not a forwarded message"],
+    ['m','maya',0,"talked to Sam, you're both Team Japan ✈️ so the boots go on hold (they'll forgive you)"],
+    ['c',"Jasmine locked her money with PocketMoney to actually save"],
+    ['m','jesmine',1,"can I grab $60 for dinner tonight?"],
+    ['m','jesmine',0,"🔓 lock check… you're good! releasing $60. $15 of fun money left this week, spend it wisely (or don't, I'm a money app not a cop) ✅"],
+    ['m','jesmine',1,"and $90 for concert tickets?"],
+    ['c',"It releases what fits her lock, and holds what doesn't"],
+    ['m','jesmine',0,"🔒 oof, that's over your lock, only $15 left this week. holding it so future-you sends a thank-you note. want $15 now and the rest Monday?"],
+    ['c',"Rent gets split fairly, with her income kept private"],
+    ['m','maya',1,"can you sort the rent with jasmine?"],
+    ['m','maya',0,"on it. your fair share is $1,306, sorted privately. I'll just tell Jasmine it's covered, no numbers, no drama. reply yes 👍"],
+    ['m','maya',1,"yes do it"],
+    ['m','maya',0,"rent handled, $1,306, gone ✅ one less thing rattling around your brain"],
+    ['m','maya',0,"Rent $2,000 — Jasmine ✅ You ✅ covered for June 🏠 nailed it"],
+    ['m','jesmine',0,"Rent $2,000 — Aisha ✅ You ✅ covered for June 🏠"],
+    ['c',"A secret gift for Sam, invisible to everyone"],
+    ['m','maya',1,"i wanna surprise sam with airpods, $180"],
+    ['m','maya',0,"🎁 ooh sneaky, I love it. sealed lips 🤐 Sam won't see this, neither will Jasmine. stash $180? (reply yes)"],
+    ['m','maya',1,"yes"],
+    ['m','maya',0,"done, $180 tucked away for Sam's gift 🤐 our little secret"],
+    ['c',"And a shared win toward the trip"],
+    ['m','maya',1,"put $400 toward japan"],
+    ['m','maya',0,"$400 straight into the Japan fund ✈️ look at you go"],
+    ['m','maya',0,"Japan ✈️ — $2,800 / $5,000 (56%) 🎌 over halfway, let's gooo"],
+    ['m','sam',0,"Japan ✈️ — $2,800 / $5,000 (56%) 🎌 over halfway!"],
+    ['c',"One assistant, two relationships, privacy intact"],
+  ];
+  let runId=0;
+  async function setCap(text,myId){ const c=document.getElementById('dcap'); c.style.opacity=0; await sleep(220); if(myId!==runId) return; c.textContent=text; c.style.opacity=1; await sleep(500); }
+  async function play(myId){
+    ['sam','maya','jesmine'].forEach(p=>feed(p).innerHTML='<div class="day">iMessage · Today</div>');
+    const dc=document.getElementById('dcap'); dc.style.opacity=0; dc.textContent='';
+    for(const s of story){
+      if(myId!==runId) return;
+      if(s[0]==='c'){ await setCap(s[1],myId); }
+      else { const p=s[1],me=s[2],t=s[3]; if(me){ bubble(p,t,true); await sleep(readMs(t)); } else { await botMsg(p,t,myId); } }
+    }
+  }
+  // branching intro: Aisha first, branches draw, then Sam & Jasmine + labels
+  async function playHub(myId){
+    const cast=document.querySelector('.cast');
+    const mid=cast.querySelector('.cnode.mid'); const sides=cast.querySelectorAll('.cnode:not(.mid)');
+    cast.classList.remove('draw'); cast.querySelectorAll('.cnode').forEach(b=>b.classList.remove('in'));
+    await sleep(60); if(myId!==runId) return;
+    mid.classList.add('in');
+    setTimeout(()=>{ if(myId===runId) cast.classList.add('draw'); },520);
+    setTimeout(()=>{ if(myId===runId) sides.forEach(b=>b.classList.add('in')); },980);
+    await sleep(2100);
+  }
+  async function full(){ const myId=++runId; await playHub(myId); if(myId!==runId) return; await sleep(800); if(myId!==runId) return; await play(myId); }
+
+  document.getElementById('replay').addEventListener('click',full);
+  let started=false;
+  function maybeStart(){ if(started) return; const r=document.getElementById('demo').getBoundingClientRect(); if(r.top < innerHeight*0.7 && r.bottom>0){ started=true; full(); } }
+  addEventListener('scroll',maybeStart,{passive:true});
+  addEventListener('load',maybeStart);
+  maybeStart();
+
+  // scroll reveal: ease sections up as they enter view
+  const reveals=[...document.querySelectorAll('.reveal')];
+  function revealCheck(){ const h=(innerHeight||800)*0.8; for(const el of reveals){ if(!el.classList.contains('in') && el.getBoundingClientRect().top<h) el.classList.add('in'); } }
+  ['scroll','resize','load'].forEach(ev=>addEventListener(ev,revealCheck,{passive:true}));
+  [0,120,400,900,1600].forEach(t=>setTimeout(revealCheck,t));
+
+  // ── early-access signup → FormSubmit (free, no backend, no account) ──
+  (function(){
+    var form=document.getElementById('ea'); if(!form) return;
+    var thanks=document.getElementById('thanks'), err=document.getElementById('formerr');
+    var ENDPOINT='https://formsubmit.co/ajax/seratmahmudsaad@gmail.com';
+    var el=function(n){return form.elements[n];};
+    function ok(){ form.style.display='none'; if(thanks) thanks.style.display='block'; }
+    function fail(msg){ if(err){ err.textContent=msg; err.style.display='block'; } }
+    form.addEventListener('submit',async function(e){
+      e.preventDefault();
+      if(!form.reportValidity()) return;                          // native required/email checks
+      if(el('bot-field') && el('bot-field').value){ ok(); return; } // honeypot: silently pass
+      var btn=form.querySelector('button[type=submit]');
+      btn.disabled=true; var label=btn.textContent; btn.textContent='Joining…'; if(err) err.style.display='none';
+      var payload={
+        name:el('name').value.trim(), email:el('email').value.trim(),
+        phone:el('phone').value.trim(), role:el('role').value,
+        sms_consent: el('sms_consent').checked ? 'yes' : 'no',
+        _subject:'New PocketMoney early-access signup', _template:'table'
+      };
+      try{
+        var r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+        var d=await r.json().catch(function(){return {};});
+        if(r.ok && String(d.success)==='true'){ ok(); }
+        else { throw new Error(d.message||('HTTP '+r.status)); }
+      }catch(ex){
+        btn.disabled=false; btn.textContent=label;
+        fail('Hmm, that did not go through. Try again, or email seratmahmudsaad@gmail.com');
+      }
+    });
+  })();
+</script>
+</body>
+</html>

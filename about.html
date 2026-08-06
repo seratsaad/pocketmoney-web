@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — PocketMoney</title>
+<style>
+  :root{--ink:#15151a;--muted:#6b6b76;--line:#ececec;--blue:#0b84fe;--green:#1a7a4a;--bg:#fbfbfa}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  a{color:var(--blue)}
+  nav{border-bottom:1px solid var(--line)}
+  nav .row{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:1080px;margin:0 auto;padding:0 22px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+  .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:inline-flex;align-items:center;justify-content:center}
+  .logo svg{width:18px;height:18px}
+  .btn{background:var(--ink);color:#fff;font-weight:650;font-size:14px;padding:9px 15px;border-radius:10px;text-decoration:none}
+  .doc{padding:48px 0 80px}
+  .doc h1{font-size:34px;letter-spacing:-.03em;margin-bottom:18px}
+  .doc h2{font-size:20px;margin:28px 0 8px;letter-spacing:-.01em}
+  .doc p{color:#34343c;margin-bottom:14px}
+  .lead{font-size:19px;color:#4a4a52;margin-bottom:22px}
+  footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  footer .row{max-width:1080px;margin:0 auto;padding:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+  <nav><div class="row">
+    <a class="brand" href="/"><span class="logo" id="lg"></span>PocketMoney</a>
+    <a class="btn" href="/#signup">Get early access</a>
+  </div></nav>
+  <main class="wrap doc">
+    <h1>About PocketMoney</h1>
+    <p class="lead">PocketMoney is an AI you text to handle money between people, without anyone losing their privacy.</p>
+    <p>Most money apps were built for one person looking at a dashboard. But the hardest part of money is rarely the tracking, it is the part that happens <em>between</em> people: splitting rent with a roommate, planning a trip with a partner, helping family, keeping a team on budget.</p>
+    <p>Every existing tool forces a bad trade. Share everything and it feels like surveillance. Keep everything separate and you cannot coordinate. Money is one of the most common things people argue about, and nobody built the middle ground.</p>
+    <h2>How we think about it</h2>
+    <p>Everyone texts their own PocketMoney. It coordinates the shared things, quietly gets the right person's okay when a decision is shared, and keeps each person's income, balances, and private spending to themselves. We call it accountability without surveillance.</p>
+    <p>The same idea works for couples, roommates, families, and small teams. One assistant, many relationships, clear walls between all of them.</p>
+    <h2>Where we are</h2>
+    <p>PocketMoney is early and we are onboarding our first users by hand. If that sounds like you, <a href="/#signup">join the early access list</a> and we will reach out.</p>
+  </main>
+  <footer><div class="row">
+    <span>© 2026 PocketMoney · All rights reserved</span>
+    <a href="/">Back to home</a>
+  </div></footer>
+  <script>document.getElementById('lg').innerHTML='<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="3" fill="#fff"/><circle cx="16.2" cy="12.2" r="1.7" fill="#1a7a4a"/></svg>';</script>
+</body>
+</html>
