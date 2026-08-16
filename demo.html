@@ -4,7 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PocketMoney · live demo</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
+  @font-face{font-family:'Fuggles';src:url(fonts/fuggles.woff2) format('woff2');font-weight:400;font-display:swap}
+
   :root{ --ink:#1c1c1e; --muted:#8e8e93; --blue:#0b84fe; --bot:#e9e9eb; --green:#1a7a4a; --line:#e6e6ea; }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
@@ -47,10 +52,10 @@
   @keyframes slideL{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
   @keyframes slideR{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
   .pa{width:24px;height:24px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg,#0b84fe,#1a7a4a);margin-bottom:2px}
+      background:linear-gradient(135deg,#0b84fe,#1a7a4a);margin-bottom:2px;color:#fff;font-family:'Fuggles',cursive;font-size:20px;line-height:1;padding-bottom:2px}
   .pa svg{width:14px;height:14px}
   .brand{display:flex;align-items:center;justify-content:center;gap:10px}
-  .logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(11,132,254,.3)}
+  .logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(11,132,254,.3);color:#fff;font-family:'Fuggles',cursive;font-size:26px;line-height:1;padding-bottom:3px}
   .logo svg{width:19px;height:19px}
   .col{display:flex;flex-direction:column;min-width:0}
   .who{font-size:10px;color:var(--muted);margin:0 6px 2px}
@@ -360,7 +365,7 @@ function inferRoom(world,fromId,text){
   }
 
   const WALLET='<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="3" fill="#fff"/><circle cx="16.2" cy="12.2" r="1.7" fill="#1a7a4a"/></svg>';
-  document.getElementById('logo').innerHTML=WALLET;
+  document.getElementById('logo').textContent='P';
   const NAMES={maya:'Aisha',sam:'Sam',jesmine:'Jasmine'};
   const PANES=['dm:sam','dm:maya','dm:jesmine'];
   const feed=t=>document.getElementById('feed-'+t);
@@ -374,7 +379,7 @@ function inferRoom(world,fromId,text){
     const row=document.createElement('div'); row.className='row '+(isMe?'me':'them bot');
     if(isMe){ const b=document.createElement('div'); b.className='bub'; b.textContent=text; row.appendChild(b); }
     else{
-      const pa=document.createElement('div'); pa.className='pa'; pa.innerHTML=WALLET; row.appendChild(pa);
+      const pa=document.createElement('div'); pa.className='pa'; pa.textContent='P'; row.appendChild(pa);
       const col=document.createElement('div'); col.className='col';
       col.innerHTML='<div class="who">PocketMoney</div>'; const b=document.createElement('div'); b.className='bub'; b.textContent=text; col.appendChild(b); row.appendChild(col);
     }
@@ -408,7 +413,7 @@ function inferRoom(world,fromId,text){
 
   function flash(thread){ const p=document.getElementById('ph-'+thread); if(p){p.classList.add('flash'); setTimeout(()=>p.classList.remove('flash'),700);} }
   function setSub(thread,txt){ const s=document.getElementById('sub-'+thread); if(s) s.textContent=txt; }
-  async function typing(thread,ms){ flash(thread); setSub(thread,'typing…'); const f=feed(thread); const row=document.createElement('div'); row.className='row them bot typing'; row.innerHTML='<div class="pa">'+WALLET+'</div><div class="bub"><i></i><i></i><i></i></div>'; f.appendChild(row); f.scrollTop=f.scrollHeight; await sleep(ms); row.remove(); setSub(thread,''); }
+  async function typing(thread,ms){ flash(thread); setSub(thread,'typing…'); const f=feed(thread); const row=document.createElement('div'); row.className='row them bot typing'; row.innerHTML='<div class="pa">P</div><div class="bub"><i></i><i></i><i></i></div>'; f.appendChild(row); f.scrollTop=f.scrollHeight; await sleep(ms); row.remove(); setSub(thread,''); }
   const readMs=t=>Math.min(3600,Math.max(1600,(t||'').length*42));
   async function deliver(thread,text){ await typing(thread,1250); bubble(thread,'PocketMoney',text,false); await sleep(readMs(text)); }
 

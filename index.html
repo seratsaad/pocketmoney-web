@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PocketMoney — the money agent you text</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="An AI you text to handle money between people. Split rent, check before you buy, save together, without anyone losing their privacy." />
 <meta property="og:title" content="PocketMoney — the money agent you text" />
 <meta property="og:description" content="Accountability without surveillance. The AI that handles money between people." />
@@ -11,6 +14,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  @font-face{font-family:'Fuggles';src:url(fonts/fuggles.woff2) format('woff2');font-weight:400;font-display:swap}
+
   :root{ --ink:#15151a; --muted:#6b6b76; --line:#ececec; --blue:#0b84fe; --green:#1a7a4a; --bg:#fbfbfa; --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -18,7 +23,7 @@
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   a{color:inherit;text-decoration:none}
   /* wallet logo */
-  .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:inline-flex;align-items:center;justify-content:center}
+  .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0b84fe,#1a7a4a);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-family:'Fuggles',cursive;font-size:26px;line-height:1;padding-bottom:3px}
   .logo svg{width:18px;height:18px}
   /* nav */
   nav{position:sticky;top:0;z-index:40;background:rgba(251,251,250,.8);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
@@ -327,8 +332,8 @@
 
 <script>
   const WALLET='<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="3" fill="#fff"/><circle cx="16.2" cy="12.2" r="1.7" fill="#1a7a4a"/></svg>';
-  document.getElementById('navlogo').innerHTML=WALLET;
-  document.getElementById('flogo').innerHTML=WALLET;
+  document.getElementById('navlogo').textContent='P';
+  document.getElementById('flogo').textContent='P';
 
   const feed=id=>document.getElementById('f-'+id);
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -336,13 +341,13 @@
   function bubble(p,text,me){
     const f=feed(p); const b=document.createElement('div'); b.className='b '+(me?'me':'bot');
     if(me){ b.textContent=text; }
-    else { b.innerHTML='<span class="pa">'+WALLET+'</span><span></span>'; b.lastChild.textContent=text; }
+    else { b.innerHTML='<span class="pa">P</span><span></span>'; b.lastChild.textContent=text; }
     f.appendChild(b);
     const mp=text.match(/\$([\d,]+)\s*\/\s*\$([\d,]+)\s*\((\d+)%\)/);
     if(mp){ const g=document.createElement('div'); g.className='goal'; g.innerHTML='<div class="lbl">Japan ✈️ fund</div><div class="bar"><div class="fill" style="width:0%"></div></div>'; f.appendChild(g); requestAnimationFrame(()=>g.querySelector('.fill').style.width=mp[3]+'%'); }
     f.scrollTop=f.scrollHeight;
   }
-  async function typing(p,ms){ const f=feed(p); const t=document.createElement('div'); t.className='b bot typing'; t.innerHTML='<span class="pa">'+WALLET+'</span><span class="dots"><i></i><i></i><i></i></span>'; f.appendChild(t); f.scrollTop=f.scrollHeight; await sleep(ms); t.remove(); }
+  async function typing(p,ms){ const f=feed(p); const t=document.createElement('div'); t.className='b bot typing'; t.innerHTML='<span class="pa">P</span><span class="dots"><i></i><i></i><i></i></span>'; f.appendChild(t); f.scrollTop=f.scrollHeight; await sleep(ms); t.remove(); }
   async function botMsg(p,text,myId){ await typing(p,900); if(myId!==runId) return; bubble(p,text,false); await sleep(readMs(text)); }
 
   // hardcoded story (em dashes allowed inside chat bubbles)
