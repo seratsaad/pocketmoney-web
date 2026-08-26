@@ -363,8 +363,6 @@ function inferRoom(world,fromId,text){
     handleMessage(world,threadId,from,text);
     return { messages:world.outbox.slice(before), wall:world._wall };
   }
-
-  const WALLET='<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="3" fill="#fff"/><circle cx="16.2" cy="12.2" r="1.7" fill="#1a7a4a"/></svg>';
   document.getElementById('logo').textContent='P';
   const NAMES={maya:'Aisha',sam:'Sam',jesmine:'Jasmine'};
   const PANES=['dm:sam','dm:maya','dm:jesmine'];
