@@ -240,6 +240,25 @@
     <p class="tagline rise" style="animation-delay:.44s"><b>Accountability without surveillance</b></p>
   </div></header>
 
+  <section id="signup" style="border:none"><div class="wrap">
+    <div class="signup reveal">
+      <h2>Get early access</h2>
+      <p>We are onboarding the first couples, roommates, and small teams by hand, join the list and we will reach out</p>
+      <form id="ea" novalidate>
+        <p class="hp"><label>Skip<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <label for="n">Name</label><input id="n" name="name" type="text" placeholder="Your name" required />
+        <label for="e">Email</label><input id="e" name="email" type="email" placeholder="you@example.com" required />
+        <label for="p">Phone (so PocketMoney can text you)</label><input id="p" name="phone" type="tel" placeholder="Your phone number" required />
+        <label for="r">Who is it for</label>
+        <select id="r" name="role"><option>A couple</option><option>Roommates</option><option>A small team</option><option>Just me</option></select>
+        <label class="consent"><input id="c" name="sms_consent" type="checkbox" value="yes" required /><span>I agree to receive text messages from PocketMoney about early access and my account. Msg &amp; data rates may apply. Msg frequency varies. Reply <b>HELP</b> for help, <b>STOP</b> to cancel. Consent is not a condition of purchase. See our <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms</a>.</span></label>
+        <button class="btn" type="submit">Join early access</button>
+      </form>
+      <div id="thanks">✅ <b>You are on the list</b> we will text you when it is your turn</div>
+      <div id="formerr"></div>
+    </div>
+  </div></section>
+
   <section id="demo"><div class="wrap">
     <h2 class="demo-title reveal">Meet Aisha and her two worlds</h2>
 
@@ -297,25 +316,6 @@
       <div class="qa reveal"><h4>Can my roommate see my balance?</h4><p>Never, PocketMoney coordinates the shared stuff and keeps your private money private</p></div>
       <div class="qa reveal"><h4>How do I talk to it?</h4><p>You just text it, like a friend, with no new app to learn</p></div>
       <div class="qa reveal"><h4>What does it cost?</h4><p>Early access is free while we onboard the first couples, roommates, and teams</p></div>
-    </div>
-  </div></section>
-
-  <section id="signup" style="border:none"><div class="wrap">
-    <div class="signup reveal">
-      <h2>Get early access</h2>
-      <p>We are onboarding the first couples, roommates, and small teams by hand, join the list and we will reach out</p>
-      <form id="ea" novalidate>
-        <p class="hp"><label>Skip<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-        <label for="n">Name</label><input id="n" name="name" type="text" placeholder="Your name" required />
-        <label for="e">Email</label><input id="e" name="email" type="email" placeholder="you@example.com" required />
-        <label for="p">Phone (so PocketMoney can text you)</label><input id="p" name="phone" type="tel" placeholder="Your phone number" required />
-        <label for="r">Who is it for</label>
-        <select id="r" name="role"><option>A couple</option><option>Roommates</option><option>A small team</option><option>Just me</option></select>
-        <label class="consent"><input id="c" name="sms_consent" type="checkbox" value="yes" required /><span>I agree to receive text messages from PocketMoney about early access and my account. Msg &amp; data rates may apply. Msg frequency varies. Reply <b>HELP</b> for help, <b>STOP</b> to cancel. Consent is not a condition of purchase. See our <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms</a>.</span></label>
-        <button class="btn" type="submit">Join early access</button>
-      </form>
-      <div id="thanks">✅ <b>You are on the list</b> we will text you when it is your turn</div>
-      <div id="formerr"></div>
     </div>
   </div></section>
 
