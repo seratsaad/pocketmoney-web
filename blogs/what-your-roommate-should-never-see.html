@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What your roommate should never see · PocketMoney</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="How the privacy wall decides what crosses between people and what stays with you" />
+<meta property="og:title" content="What your roommate should never see · PocketMoney" />
+<meta property="og:description" content="How the privacy wall decides what crosses between people and what stays with you" />
+<meta property="og:url" content="https://trypocketmoney.com/blogs/what-your-roommate-should-never-see.html" />
+<link rel="canonical" href="https://trypocketmoney.com/blogs/what-your-roommate-should-never-see.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blogs/blog.css">
+  <!-- PostHog web analytics (privacy-first: no session recording) -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording capturedForSessionRecording get_session_recording_status log optIn optOut".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_vDGzgaGSYCHzjmmtXt4KbbL6Bm7c357qby8rYuPzvGn6', {
+      api_host: 'https://us.i.posthog.com',
+      person_profiles: 'identified_only',
+      disable_session_recording: true
+    });
+  </script>
+</head>
+<body>
+  <nav><div class="wrap row">
+    <a class="brand" href="/"><span class="logo">P</span>PocketMoney</a>
+    <div class="navr"><a class="navlink on" href="/blogs/">Blogs</a><a class="btn" href="/#signup">Get early access</a></div>
+  </div></nav>
+
+  <main>
+    <article>
+      <header class="post">
+        <a class="back" href="/blogs/">← Blogs</a>
+        <div class="meta"><span class="cat">Product</span><time datetime="2026-09-25">Sep 25, 2026</time></div>
+        <h1>What your roommate should never see</h1>
+        <p class="lead">How the privacy wall decides what crosses between people and what stays with you</p>
+        <div class="by">By the PocketMoney team</div>
+      </header>
+      <div class="hero"><div class="art mint " aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="#15151a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="30" r="10"/><path d="M8 70c2-14 10-20 16-20s14 6 16 20"/><circle cx="96" cy="30" r="10"/><path d="M80 70c2-14 10-20 16-20s14 6 16 20"/><rect x="54" y="6" width="12" height="78" rx="3" fill="#1a7a4a"/><path d="M54 24h12M54 44h12M54 64h12" stroke="#fff"/></svg></div></div>
+      <div class="prose">
+<p>Here is a question someone asked PocketMoney during testing. "Can Sam afford to cover my half this month?" It is a fair thing to wonder. It is also exactly the kind of question PocketMoney will never answer.</p>
+<p>Everyone has their own private chat with PocketMoney. Groups, which we call Circles, are where shared costs live. Between the two sits what we call the privacy wall, a set of rules about what can move from your private chat into a group. This post walks through those rules and one leak we caught before it shipped.</p>
+<h2>What never leaves your chat</h2>
+<p>Some things stay with you, and nobody in a group can see them.</p>
+<ul>
+<li>Bank balances, and whether you connected a bank at all</li>
+<li>Income, paychecks, and when you get paid</li>
+<li>Your personal spending and budgets</li>
+<li>Any coaching PocketMoney gives you about your own money</li>
+<li>What you owe or are owed in your other groups</li>
+</ul>
+<p>If someone asks about another person's private money, PocketMoney says no and explains why. It does this every time, however the question is phrased.</p>
+<h2>What can cross, with your okay</h2>
+<p>A group does need some facts to work.</p>
+<ul>
+<li>A specific expense you choose to split, with the amount and what it was for</li>
+<li>The agreed split and who owes whom as a result</li>
+<li>A shared goal everyone opted into, like saving $1,200 for a trip, and how close you are</li>
+<li>Your display name</li>
+</ul>
+<p>Even these do not get passed along on their own. PocketMoney does not send anything to another person until the person sharing it confirms. That check lives in code, not only in the instructions we give the AI, because an instruction can be talked around and code cannot.</p>
+<h2>The leak hiding in a fair split</h2>
+<p>Here is where it gets more interesting. Say two roommates want to split rent by income, so the one who earns more pays more. PocketMoney can do that math using both incomes without ever showing either one.</p>
+<p>But the answer can give the secret away. If you know your own income and you are told you pay 40 percent of the rent, you can work out that your roommate earns one and a half times what you do. The inputs stayed hidden and the output leaked them anyway.</p>
+<p>We found this before income-based splits went out, and it changed how we think about the wall. Hiding the numbers that go in is not enough. We also have to ask what someone could work out from the number that comes out.</p>
+<h2>Trying to break it on purpose</h2>
+<p>Before we trusted the wall, we ran tests built to break it. Some asked politely. Others tried tricks, like pretending to be the other person or hiding instructions inside a message. The wall held each time. We will keep running these tests, since every new feature is a new place for something to slip through.</p>
+<p>Accountability without surveillance is the phrase we use for all of this. The people you share money with should be able to count on you, without being able to look through your bank account.</p>
+
+        <div class="cta"><span>Want to try PocketMoney</span><a class="btn" href="/#signup">Get early access</a></div>
+      </div>
+    </article>
+    <section class="more"><div class="wrap">
+      <h2>More from the blog</h2>
+      <div class="grid"><a class="card" href="/blogs/the-ai-never-touches-the-ledger.html"><div class="art sky " aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="#15151a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="6" width="72" height="78" rx="8" fill="#fff"/><path d="M28 24h30M28 38h40M28 52h24M28 66h34"/><path d="M72 24h6M76 38h2M64 52h14M70 66h8" stroke="#6b6b76"/><circle cx="92" cy="64" r="18" fill="#1a7a4a"/><path d="M84 64l6 6 11-12" stroke="#fff" stroke-width="3"/></svg></div><div class="meta"><span class="cat">Engineering</span><time datetime="2026-09-25">Sep 25, 2026</time></div><h3>Why the AI never touches the ledger</h3></a><a class="card" href="/blogs/why-we-stopped-building-a-money-tracker.html"><div class="art sand " aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="#15151a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="66" height="36" rx="14"/><path d="M22 44l-6 12 16-12"/><rect x="48" y="40" width="66" height="36" rx="14" fill="#0b84fe" stroke="#15151a"/><path d="M98 76l6 12-16-12" fill="#0b84fe"/><circle cx="26" cy="26" r="2.6" fill="#15151a"/><circle cx="39" cy="26" r="2.6" fill="#15151a"/><circle cx="52" cy="26" r="2.6" fill="#15151a"/><path d="M62 58h38" stroke="#fff"/></svg></div><div class="meta"><span class="cat">Company</span><time datetime="2026-09-25">Sep 25, 2026</time></div><h3>Why we stopped building a money tracker</h3></a></div>
+    </div></section>
+  </main>
+  <footer><div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="brand"><span class="logo">P</span>PocketMoney</div>
+        <div class="fitalic">Stop spying on each other</div>
+        <div class="fbold">Start saving together</div>
+        <div class="fdesc">An AI you text to handle money between people, without anyone losing their privacy</div>
+      </div>
+      <div class="fcol"><h4>Product</h4><a href="/#demo">How it works</a><a href="/#demo">Demo</a><a href="/#signup">Early access</a><a href="/blogs/">Blogs</a></div>
+      <div class="fcol"><h4>Support</h4><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+    </div>
+    <div class="fbar">
+      <span>© 2026 PocketMoney · All rights reserved</span>
+      <span class="status"><span class="dot"></span> Early access open</span>
+    </div>
+  </div></footer>
+</body>
+</html>

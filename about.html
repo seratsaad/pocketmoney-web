@@ -28,6 +28,10 @@
   .lead{font-size:19px;color:#4a4a52;margin-bottom:22px}
   footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
   footer .row{max-width:1080px;margin:0 auto;padding:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .navr{display:flex;align-items:center;gap:18px}
+  .navlink{font-weight:600;font-size:15px;color:var(--muted);text-decoration:none;transition:color .2s ease}
+  .navlink:hover{color:var(--ink)}
+  @media(max-width:480px){nav .row{gap:12px}.brand{font-size:16px;gap:7px}.navr{gap:12px}.navlink{font-size:14px}.navr .btn{font-size:13px;padding:8px 11px;white-space:nowrap}}
 </style>
   <!-- PostHog web analytics (privacy-first: no session recording) -->
   <script>
@@ -42,7 +46,7 @@
 <body>
   <nav><div class="row">
     <a class="brand" href="/"><span class="logo" id="lg"></span>PocketMoney</a>
-    <a class="btn" href="/#signup">Get early access</a>
+    <div class="navr"><a class="navlink" href="/blogs/">Blogs</a><a class="btn" href="/#signup">Get early access</a></div>
   </div></nav>
   <main class="wrap doc">
     <h1>About PocketMoney</h1>

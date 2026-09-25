@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Why we stopped building a money tracker · PocketMoney</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Our first app taught us that the hard part of money is rarely the tracking" />
+<meta property="og:title" content="Why we stopped building a money tracker · PocketMoney" />
+<meta property="og:description" content="Our first app taught us that the hard part of money is rarely the tracking" />
+<meta property="og:url" content="https://trypocketmoney.com/blogs/why-we-stopped-building-a-money-tracker.html" />
+<link rel="canonical" href="https://trypocketmoney.com/blogs/why-we-stopped-building-a-money-tracker.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blogs/blog.css">
+  <!-- PostHog web analytics (privacy-first: no session recording) -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording capturedForSessionRecording get_session_recording_status log optIn optOut".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_vDGzgaGSYCHzjmmtXt4KbbL6Bm7c357qby8rYuPzvGn6', {
+      api_host: 'https://us.i.posthog.com',
+      person_profiles: 'identified_only',
+      disable_session_recording: true
+    });
+  </script>
+</head>
+<body>
+  <nav><div class="wrap row">
+    <a class="brand" href="/"><span class="logo">P</span>PocketMoney</a>
+    <div class="navr"><a class="navlink on" href="/blogs/">Blogs</a><a class="btn" href="/#signup">Get early access</a></div>
+  </div></nav>
+
+  <main>
+    <article>
+      <header class="post">
+        <a class="back" href="/blogs/">← Blogs</a>
+        <div class="meta"><span class="cat">Company</span><time datetime="2026-09-25">Sep 25, 2026</time></div>
+        <h1>Why we stopped building a money tracker</h1>
+        <p class="lead">Our first app taught us that the hard part of money is rarely the tracking</p>
+        <div class="by">By the PocketMoney team</div>
+      </header>
+      <div class="hero"><div class="art sand " aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="#15151a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="66" height="36" rx="14"/><path d="M22 44l-6 12 16-12"/><rect x="48" y="40" width="66" height="36" rx="14" fill="#0b84fe" stroke="#15151a"/><path d="M98 76l6 12-16-12" fill="#0b84fe"/><circle cx="26" cy="26" r="2.6" fill="#15151a"/><circle cx="39" cy="26" r="2.6" fill="#15151a"/><circle cx="52" cy="26" r="2.6" fill="#15151a"/><path d="M62 58h38" stroke="#fff"/></svg></div></div>
+      <div class="prose">
+<p>Before PocketMoney there was Pocket, a personal finance app in Bengali. You opened it, typed in what you spent, and it showed you a monthly ledger and a budget. Real people in Bangladesh used it to manage their money, and we learned more from them than from anything we had planned.</p>
+<p>Two things became hard to ignore. This post is about both of them and how they turned into the product we are building now.</p>
+<h2>Nobody wants to log money by hand</h2>
+<p>People would start strong, enter every rickshaw fare for a week, and then stop. That is not a willpower problem. Typing in every purchase is tedious, and most people have better things to do. In the US, banks and apps already track spending automatically, so logging was never going to be the product.</p>
+<h2>Money is mostly a group project</h2>
+<p>The second lesson took longer to see. When people talked to us about money, they were rarely talking about their own spending. They were talking about someone else. A roommate who is late on rent. A partner who spends differently. A sibling who needs help every month and does not like to ask.</p>
+<p>Almost every money tool is built for one person looking at a dashboard. When two people are involved, the tools make you pick between two bad options. Share everything, and it can feel like being watched. Keep everything separate, and you cannot coordinate without awkward conversations.</p>
+<p>So we started over with a different question. What would it look like to handle the shared parts of money together, while the private parts stay private?</p>
+<h2>Why you text it</h2>
+<p>PocketMoney is an AI you text. There is no dashboard to learn. You tell it you paid $84 for groceries and want to split it with Maya, and it records the split and lets Maya know. You ask whether you can afford a $220 pair of boots before you buy them, not after.</p>
+<p>Texting matters because it reaches people at the moment a decision happens. Nobody opens a budgeting app while standing in a store. People do open their messages.</p>
+<h2>Where we are now</h2>
+<p>We are early. We are onboarding our first couples and roommates by hand, and the product changes almost every week based on what they tell us. This blog is where we will write about what we are building and what we get wrong along the way.</p>
+
+        <div class="cta"><span>Want to try PocketMoney</span><a class="btn" href="/#signup">Get early access</a></div>
+      </div>
+    </article>
+    <section class="more"><div class="wrap">
+      <h2>More from the blog</h2>
+      <div class="grid"><a class="card" href="/blogs/the-ai-never-touches-the-ledger.html"><div class="art sky " aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="#15151a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="6" width="72" height="78" rx="8" fill="#fff"/><path d="M28 24h30M28 38h40M28 52h24M28 66h34"/><path d="M72 24h6M76 38h2M64 52h14M70 66h8" stroke="#6b6b76"/><circle cx="92" cy="64" r="18" fill="#1a7a4a"/><path d="M84 64l6 6 11-12" stroke="#fff" stroke-width="3"/></svg></div><div class="meta"><span class="cat">Engineering</span><time datetime="2026-09-25">Sep 25, 2026</time></div><h3>Why the AI never touches the ledger</h3></a><a class="card" href="/blogs/what-your-roommate-should-never-see.html"><div class="art mint " aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="#15151a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="30" r="10"/><path d="M8 70c2-14 10-20 16-20s14 6 16 20"/><circle cx="96" cy="30" r="10"/><path d="M80 70c2-14 10-20 16-20s14 6 16 20"/><rect x="54" y="6" width="12" height="78" rx="3" fill="#1a7a4a"/><path d="M54 24h12M54 44h12M54 64h12" stroke="#fff"/></svg></div><div class="meta"><span class="cat">Product</span><time datetime="2026-09-25">Sep 25, 2026</time></div><h3>What your roommate should never see</h3></a></div>
+    </div></section>
+  </main>
+  <footer><div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="brand"><span class="logo">P</span>PocketMoney</div>
+        <div class="fitalic">Stop spying on each other</div>
+        <div class="fbold">Start saving together</div>
+        <div class="fdesc">An AI you text to handle money between people, without anyone losing their privacy</div>
+      </div>
+      <div class="fcol"><h4>Product</h4><a href="/#demo">How it works</a><a href="/#demo">Demo</a><a href="/#signup">Early access</a><a href="/blogs/">Blogs</a></div>
+      <div class="fcol"><h4>Support</h4><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+    </div>
+    <div class="fbar">
+      <span>© 2026 PocketMoney · All rights reserved</span>
+      <span class="status"><span class="dot"></span> Early access open</span>
+    </div>
+  </div></footer>
+</body>
+</html>
